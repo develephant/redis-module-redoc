@@ -10,7 +10,7 @@ Once you have installed the `mkdocs` binary on the system, navigate to the root 
 
 ## Live Build
 
-You can work on the documentation with a live browser refresh on changes by using the built in webserver in __MkDocs__:
+You can work on the docs with a live browser refresh on changes by using the "preview" server included with __MkDocs__:
 
 First navigate to the directory that contains the `mkdocs.yml` file and then run:
 
