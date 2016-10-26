@@ -19,4 +19,3 @@ pages:
   - 'hellotype.c': 'code/hellotype.md'
   - 'helloblock.c': 'code/helloblock.md'
   - 'testmodule.c': 'code/testmodule.md'
-  - 'redismodule.h': 'code/redismodule.md'
