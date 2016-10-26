@@ -2,7 +2,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/redis-module-redoc/badge/?version=latest)](http://redis-module-redoc.readthedocs.io/en/latest/?badge=latest)
 
-### [Read Redis Modules Redoc Here](http://redis-module-redoc.readthedocs.io/en/latest/)
+### :book: [Read Redis Modules Redoc Here](http://redis-module-redoc.readthedocs.io/en/latest/)
 
 A readthedocs.org repo for the __Redis Module__ docs. Provides an alternate way to browse the documentation and API.
 
@@ -10,4 +10,4 @@ A readthedocs.org repo for the __Redis Module__ docs. Provides an alternate way 
 
 ---
 
-_Not affiliated with redis, just making my life easier._ 🛀🏼 
+_Not affiliated with redis, just making my life easier._ 🛀🏼
