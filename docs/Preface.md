@@ -7,3 +7,5 @@ This documentation is a compilation of the following sources:
 [RedisLabs/RedisModulesSDK](https://github.com/RedisLabs/RedisModulesSDK)
 
 ___All rights belong to the original authors___. This material is provided for reference only.
+
+> Oh, and in case I forget to mention it; __redis__ rocks.
