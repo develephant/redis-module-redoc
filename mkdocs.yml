@@ -8,6 +8,7 @@ pages:
 - RM_Util:
   - 'Intro': 'RMUtil.md'
   - 'API': 'RMUtil_API.md'
+  - 'Code': 'code/module.md'
 - Resources: 'Resources.md'
 - Code:
   - 'helloworld.c': 'code/helloworld.md'

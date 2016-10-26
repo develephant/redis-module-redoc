@@ -17,9 +17,9 @@ It can be found under the `rmutil` folder, and compiles into a static library yo
 
 ### An example Module
 
-A minimal module implementing a few commands and demonstarting both the Redis Module API, and use of rmutils.
+A minimal module implementing a few commands and demonstrating both the Redis Module API, and use of rmutils.
 
-You can treat it as a template for your module, and extned its code and makefile.
+You can treat it as a template for your module, and extend its code and makefile.
 
 **It includes 3 commands:**
 
