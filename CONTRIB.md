@@ -6,7 +6,7 @@ If you'd like you help with the documentation, please do. All pull requests welc
 
 The docs are generated in a few different steps:
 
-The __API.MD__, __BLOCK.MD__, and __TYPES.MD__, and __INTRO.MD__ are dropped directly into the `docs` directory from [here](https://github.com/antirez/redis/tree/unstable/src/modules).
+The __API.MD__, __BLOCK.MD__, __TYPES.MD__, and __INTRO.MD__ are dropped directly into the `docs` directory from [here](https://github.com/antirez/redis/tree/unstable/src/modules).
 
 The __INTRO.MD__ is renamed to __index.md__ and should reside in the `docs` directory root.
 
