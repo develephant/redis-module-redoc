@@ -18,6 +18,10 @@ First navigate to the directory that contains the `mkdocs.yml` file and then run
 mkdocs serve
 ```
 
+You should receive some console output providing the local content address. Generally your content will be served at `http://127.0.0.1:8000`
+
+> Change the port by adding it to the `serve` command (`mkdocs serve <port>`)
+
 ## HTML Compile
 
 If you'd like an "offline" build of the compiled documentation site, navigate to the directory that holds the `mkdocs.yml` and run:
