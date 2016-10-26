@@ -12,9 +12,9 @@ The __INTRO.MD__ is renamed to __index.md__ and should reside in the `docs` dire
 
 The __DEFINES.MD__ is derived from the [`redismodule.h`](https://github.com/antirez/redis/blob/unstable/src/redismodule.h) header file (manually for now).
 
-The __FUNCTIONS.MD__ holds API info the __RMUtil Module__ helper. The data is derived towards the bottom of [this MD file](https://github.com/RedisLabs/RedisModulesSDK/blob/master/FUNCTIONS.md) viewed in "raw" mode.
+The __FUNCTIONS.MD__ holds API info for the __RMUtil Module__ helper. The data is derived towards the bottom of [this MD file](https://github.com/RedisLabs/RedisModulesSDK/blob/master/FUNCTIONS.md) viewed in "raw" mode (manually for now).
 
-From here any code examples, or deeper dives into other topics are highly encourged.
+___From here any code examples, or deeper dives into other topics are highly encourged. Add a section!___
 
 # Building Docs
 
