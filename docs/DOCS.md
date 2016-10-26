@@ -10,7 +10,7 @@ Run:
 
 You should find the HTML output in the newly created `site` directory. You can open the `index.html` locally on your desktop, as well as store the directory elsewhere.
 
-__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.pythonforbeginners.com/modules-in-python/how-to-use-simplehttpserver/). Which commonly already available on any modern system.
+__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python). Which is commonly already available on modern systems.
 
 ## Contributions
 
