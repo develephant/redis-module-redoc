@@ -1,8 +1,8 @@
-## Contributions
+# Contributions
 
 If you'd like you help with the documentation, please do. All pull requests welcome. :)
 
-# Working with Docs
+# Working with the Docs
 
 The docs are built using [MkDocs](http://www.mkdocs.org).
 
@@ -18,7 +18,7 @@ First navigate to the directory that contains the `mkdocs.yml` file and then run
 mkdocs serve
 ```
 
-# HTML Compile
+## HTML Compile
 
 If you'd like an "offline" build of the compiled documentation site, navigate to the directory that holds the `mkdocs.yml` and run:
 
