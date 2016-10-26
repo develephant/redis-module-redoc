@@ -20,7 +20,7 @@ mkdocs serve
 
 You should receive some console output providing the local content address. Generally your content will be served at `http://127.0.0.1:8000`
 
-> Change the port by adding it to the `serve` command (`mkdocs serve <port>`)
+> Change the port by adding it after the `serve` command (`mkdocs serve <port>`)
 
 ## HTML Compile
 
@@ -32,4 +32,10 @@ mkdocs build
 
 You should find the HTML output in the newly created `site` directory. You can open the `index.html` locally in your browser.
 
-__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python). Which is commonly already available on modern systems.
+When regenerating the site, run:
+
+```bash
+mkdocs build --clean
+```
+
+__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python). Which is commonly already available on modern systems._
