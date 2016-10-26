@@ -8,7 +8,7 @@
   
   
   
-  <title>Preface - Redis Modules</title>
+  <title>Defines - Redis Modules</title>
   
 
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -23,9 +23,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Preface";
-    var mkdocs_page_input_path = "Preface.md";
-    var mkdocs_page_url = "/Preface/";
+    var mkdocs_page_name = "Defines";
+    var mkdocs_page_input_path = "DEFINES.md";
+    var mkdocs_page_url = "/DEFINES/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -43,7 +43,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="./" class="icon icon-home"> Redis Modules</a>
+        <a href="../Preface/" class="icon icon-home"> Redis Modules</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -55,15 +55,8 @@
         <ul class="current">
           
             <li>
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Preface</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#attribution">Attribution</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../Preface/">Preface</a>
         
     </li>
 <li>
@@ -97,8 +90,15 @@
 <li>
           
             <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../DEFINES/">Defines</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Defines</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#redis-module-common-defines">Redis Module Common Defines</a></li>
+                
+            
+            </ul>
         
     </li>
 <li>
@@ -192,7 +192,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="./">Redis Modules</a>
+        <a href="../Preface/">Redis Modules</a>
       </nav>
 
       
@@ -200,11 +200,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="./">Docs</a> &raquo;</li>
+    <li><a href="../Preface/">Docs</a> &raquo;</li>
     
       
     
-    <li>Preface</li>
+    <li>Defines</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -218,11 +218,70 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="attribution">Attribution</h1>
-<p>This documentation is a compilation of the following sources:</p>
-<p><a href="https://github.com/antirez/redis/tree/unstable/src/modules">antirez/redis</a></p>
-<p><a href="https://github.com/RedisLabs/RedisModulesSDK">RedisLabs/RedisModulesSDK</a></p>
-<p><strong><em>All rights belong to the original authors</em></strong>. This material is provided for reference only.</p>
+                <h1 id="redis-module-common-defines">Redis Module Common Defines</h1>
+<pre><code class="cc">/* Error status return values. */
+REDISMODULE_OK
+REDISMODULE_ERR
+
+/* API versions. */
+REDISMODULE_APIVER_1
+
+/* API flags and constants */
+REDISMODULE_READ
+REDISMODULE_WRITE
+
+REDISMODULE_LIST_HEAD
+REDISMODULE_LIST_TAIL
+
+/* Key types. */
+REDISMODULE_KEYTYPE_EMPTY
+REDISMODULE_KEYTYPE_STRING
+REDISMODULE_KEYTYPE_LIST
+REDISMODULE_KEYTYPE_HASH
+REDISMODULE_KEYTYPE_SET
+REDISMODULE_KEYTYPE_ZSET
+REDISMODULE_KEYTYPE_MODULE
+
+/* Reply types. */
+REDISMODULE_REPLY_UNKNOWN
+REDISMODULE_REPLY_STRING
+REDISMODULE_REPLY_ERROR
+REDISMODULE_REPLY_INTEGER
+REDISMODULE_REPLY_ARRAY
+REDISMODULE_REPLY_NULL
+
+/* Postponed array length. */
+REDISMODULE_POSTPONED_ARRAY_LEN
+
+/* Expire */
+REDISMODULE_NO_EXPIRE -1
+
+/* Sorted set API flags. */
+REDISMODULE_ZADD_XX
+REDISMODULE_ZADD_NX
+REDISMODULE_ZADD_ADDED
+REDISMODULE_ZADD_UPDATED
+REDISMODULE_ZADD_NOP
+
+/* Hash API flags. */
+REDISMODULE_HASH_NONE
+REDISMODULE_HASH_NX
+REDISMODULE_HASH_XX
+REDISMODULE_HASH_CFIELDS
+REDISMODULE_HASH_EXISTS
+
+/* A special pointer that we can use between the core and the module to signal
+ * field deletion, and that is impossible to be a valid pointer. */
+REDISMODULE_HASH_DELETE ((RedisModuleString*)(long)1)
+
+/* Error messages. */
+REDISMODULE_ERRORMSG_WRONGTYPE
+
+REDISMODULE_POSITIVE_INFINITE
+REDISMODULE_NEGATIVE_INFINITE
+
+REDISMODULE_NOT_USED(V) ((void) V)
+</code></pre>
               
             </div>
           </div>
@@ -230,8 +289,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href=".." class="btn btn-neutral float-right" title="Intro">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../RMUtil/RMUtil/" class="btn btn-neutral float-right" title="Intro">Next <span class="icon icon-circle-arrow-right"></span></a>
       
+      
+        <a href="../BLOCK/" class="btn btn-neutral" title="Blocking"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -259,8 +320,10 @@
           <a href="https://github.com/develephant/redis-module-redoc" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href="../BLOCK/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-        <span style="margin-left: 15px"><a href=".." style="color: #fcfcfc">Next &raquo;</a></span>
+      
+        <span style="margin-left: 15px"><a href="../RMUtil/RMUtil/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

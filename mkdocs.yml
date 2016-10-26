@@ -1,11 +1,14 @@
 site_name: Redis Modules
+site_url: http://redis-module-redoc.readthedocs.io/en/latest
 theme: readthedocs
+repo_url: https://github.com/develephant/redis-module-redoc
 pages:
 - Preface: 'Preface.md'
 - Intro: 'index.md'
 - API: 'API.md'
 - Types: 'TYPES.md'
 - Blocking: 'BLOCK.md'
+- Defines: 'DEFINES.md'
 - RM_Util:
   - 'Intro': 'RMUtil/RMUtil.md'
   - 'API': 'RMUtil/RMUtil_API.md'
