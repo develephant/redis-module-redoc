@@ -8,4 +8,4 @@ A readthedocs.org repo for the __Redis Module__ docs. Provides an alternate way 
 
 __Redis Modules__ are currently only supported in the ['unstable' branch](http://redis.io/download):
 
-_Not affliated with redis, just making my life easier. :smile:_
+_Not affliated with redis, just making my life easier._ 🛀🏼 
