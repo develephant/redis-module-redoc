@@ -6,13 +6,13 @@ If you'd like you help with the documentation, please do. All pull requests welc
 
 The docs are generated in a few different steps:
 
-The API.MD, BLOCK.MD, and TYPES.MD, and INTRO.MD are dropped directly into the `docs` directory from [here](https://github.com/antirez/redis/tree/unstable/src/modules).
+The __API.MD__, __BLOCK.MD__, and __TYPES.MD__, and __INTRO.MD__ are dropped directly into the `docs` directory from [here](https://github.com/antirez/redis/tree/unstable/src/modules).
 
 The __INTRO.MD__ is renamed to __index.md__ and should reside in the `docs` directory root.
 
 The __DEFINES.MD__ is derived from the [`redismodule.h`](https://github.com/antirez/redis/blob/unstable/src/redismodule.h) header file (manually for now).
 
-The __FUNCTIONS.MD__ holds API info the RMUtil Module helper. The data is derived towards the bottom of [this source](https://github.com/RedisLabs/RedisModulesSDK/blob/master/FUNCTIONS.md) viewed in "raw" mode.
+The __FUNCTIONS.MD__ holds API info the __RMUtil Module__ helper. The data is derived towards the bottom of [this MD file](https://github.com/RedisLabs/RedisModulesSDK/blob/master/FUNCTIONS.md) viewed in "raw" mode.
 
 From here any code examples, or deeper dives into other topics are highly encourged.
 

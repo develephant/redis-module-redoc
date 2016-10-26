@@ -10,4 +10,4 @@ mkdocs build
 
 You should find the HTML output in the newly created `site` directory. You can open the `index.html` locally on your desktop, as well as store the directory elsewhere.
 
-__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python). Which is commonly already available on modern systems.
+__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python). Which is commonly available on most modern systems._
