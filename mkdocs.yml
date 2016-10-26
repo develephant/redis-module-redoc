@@ -5,6 +5,10 @@ pages:
 - API: 'API.md'
 - Types: 'TYPES.md'
 - Blocking: 'BLOCK.md'
+- RM_Util:
+  - 'Intro': 'RMUtil.md'
+  - 'API': 'RMUtil_API.md'
+- Resources: 'Resources.md'
 - Code:
   - 'helloworld.c': 'code/helloworld.md'
   - 'hellotype.c': 'code/hellotype.md'
