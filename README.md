@@ -1,7 +1,7 @@
 # redis-module-redoc
 A readthedocs.org repo for the Redis module docs.
 
-### [Read Redis Modules Redoc](http://redis-module-redoc.readthedocs.io/en/latest/)
+### [Read Redis Modules Redoc Here](http://redis-module-redoc.readthedocs.io/en/latest/)
 
 Provides an alternate way to browse the documentation and API.
 
