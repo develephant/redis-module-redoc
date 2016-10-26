@@ -4,6 +4,20 @@ If you'd like you help with the documentation, please do. All pull requests welc
 
 # Working with the Docs
 
+The docs are generated in a few different steps:
+
+The API.MD, BLOCK.MD, and TYPES.MD, and INTRO.MD are dropped directly into the `docs` directory from [here](https://github.com/antirez/redis/tree/unstable/src/modules).
+
+The __INTRO.MD__ is renamed to __index.md__ and should reside in the `docs` directory root.
+
+The __DEFINES.MD__ is derived from the [`redismodule.h`](https://github.com/antirez/redis/blob/unstable/src/redismodule.h) header file (manually for now).
+
+The __FUNCTIONS.MD__ holds API info the RMUtil Module helper. The data is derived towards the bottom of [this source](https://github.com/RedisLabs/RedisModulesSDK/blob/master/FUNCTIONS.md) viewed in "raw" mode.
+
+From here any code examples, or deeper dives into other topics are highly encourged.
+
+# Building Docs
+
 The docs are built using [MkDocs](http://www.mkdocs.org).
 
 Once you have installed the `mkdocs` binary on the system, navigate to the root folder of the __redis-modules-redoc__ source (this will be the same directory holding the __mkdocs.yml__ file.
@@ -38,4 +52,4 @@ When regenerating the site, run:
 mkdocs build --clean
 ```
 
-__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python). Which is commonly already available on modern systems._
+__Note:__ _The site will work better when running through a basic local webserver like [SimpleHttpServer](http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python). Which is commonly available on most modern systems._
