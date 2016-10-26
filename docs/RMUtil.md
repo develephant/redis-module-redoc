@@ -1,7 +1,7 @@
 
 # LibRMUtil
 
-##### Preflight - Download the [RedisModulesSDK](https://github.com/RedisLabs/RedisModulesSDK).
+> __Preflight:__ Download the [RedisModulesSDK](https://github.com/RedisLabs/RedisModulesSDK).
 
 A small library of utility functions and macros for module developers, including:
 

@@ -1,5 +1,7 @@
 # RM_Utils API
 
+> __Preflight:__ Download the [RedisModulesSDK](https://github.com/RedisLabs/RedisModulesSDK).
+
 ### RMUtil_ArgExists
 ```
 int RMUtil_ArgExists(const char *arg, RedisModuleString **argv, int argc, int offset);

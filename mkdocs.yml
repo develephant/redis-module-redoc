@@ -1,6 +1,7 @@
 site_name: Redis Modules
 theme: readthedocs
 pages:
+- Preface: 'Preface.md'
 - Intro: 'index.md'
 - API: 'API.md'
 - Types: 'TYPES.md'
