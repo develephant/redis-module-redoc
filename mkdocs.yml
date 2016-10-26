@@ -19,3 +19,4 @@ pages:
   - 'hellotype.c': 'code/hellotype.md'
   - 'helloblock.c': 'code/helloblock.md'
   - 'testmodule.c': 'code/testmodule.md'
+- Offline Docs: 'DOCS.md'
