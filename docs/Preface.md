@@ -1,4 +1,4 @@
-# Attribution
+# Attributions
 
 This documentation is a compilation of the following sources:
 
