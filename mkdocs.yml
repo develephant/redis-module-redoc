@@ -7,8 +7,8 @@ pages:
 - Types: 'TYPES.md'
 - Blocking: 'BLOCK.md'
 - RM_Util:
-  - 'Intro': 'RMUtil.md'
-  - 'API': 'RMUtil_API.md'
+  - 'Intro': 'RMUtil/RMUtil.md'
+  - 'API': 'RMUtil/RMUtil_API.md'
   - 'Code': 'code/module.md'
 - Resources: 'Resources.md'
 - Code:
