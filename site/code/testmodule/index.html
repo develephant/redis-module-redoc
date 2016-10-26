@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>testmodule.c - Redis Modules</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "testmodule.c";
+    var mkdocs_page_input_path = "code/testmodule.md";
+    var mkdocs_page_url = "/code/testmodule/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Redis Modules</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Intro</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../API/">API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../TYPES/">Types</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../BLOCK/">Blocking</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Code</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../helloworld/">helloworld.c</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../hellotype/">hellotype.c</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../helloblock/">helloblock.c</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">testmodule.c</a>
+        
+            <ul>
+            
+            </ul>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Redis Modules</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Code &raquo;</li>
+        
+      
+    
+    <li>testmodule.c</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <pre><code class="cc">/* Module designed to test the Redis modules subsystem.
+ *
+ * -----------------------------------------------------------------------------
+ *
+ * Copyright (c) 2016, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *   * Redistributions of source code must retain the above copyright notice,
+ *     this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *   * Neither the name of Redis nor the names of its contributors may be used
+ *     to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#include &quot;../redismodule.h&quot;
+#include &lt;string.h&gt;
+
+/* --------------------------------- Helpers -------------------------------- */
+
+/* Return true if the reply and the C null term string matches. */
+int TestMatchReply(RedisModuleCallReply *reply, char *str) {
+    RedisModuleString *mystr;
+    mystr = RedisModule_CreateStringFromCallReply(reply);
+    if (!mystr) return 0;
+    const char *ptr = RedisModule_StringPtrLen(mystr,NULL);
+    return strcmp(ptr,str) == 0;
+}
+
+/* ------------------------------- Test units ------------------------------- */
+
+/* TEST.CALL -- Test Call() API. */
+int TestCall(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    REDISMODULE_NOT_USED(argv);
+    REDISMODULE_NOT_USED(argc);
+
+    RedisModule_AutoMemory(ctx);
+    RedisModuleCallReply *reply;
+
+    RedisModule_Call(ctx,&quot;DEL&quot;,&quot;c&quot;,&quot;mylist&quot;);
+    RedisModuleString *mystr = RedisModule_CreateString(ctx,&quot;foo&quot;,3);
+    RedisModule_Call(ctx,&quot;RPUSH&quot;,&quot;csl&quot;,&quot;mylist&quot;,mystr,(long long)1234);
+    reply = RedisModule_Call(ctx,&quot;LRANGE&quot;,&quot;ccc&quot;,&quot;mylist&quot;,&quot;0&quot;,&quot;-1&quot;);
+    long long items = RedisModule_CallReplyLength(reply);
+    if (items != 2) goto fail;
+
+    RedisModuleCallReply *item0, *item1;
+
+    item0 = RedisModule_CallReplyArrayElement(reply,0);
+    item1 = RedisModule_CallReplyArrayElement(reply,1);
+    if (!TestMatchReply(item0,&quot;foo&quot;)) goto fail;
+    if (!TestMatchReply(item1,&quot;1234&quot;)) goto fail;
+
+    RedisModule_ReplyWithSimpleString(ctx,&quot;OK&quot;);
+    return REDISMODULE_OK;
+
+fail:
+    RedisModule_ReplyWithSimpleString(ctx,&quot;ERR&quot;);
+    return REDISMODULE_OK;
+}
+
+/* TEST.STRING.APPEND -- Test appending to an existing string object. */
+int TestStringAppend(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    REDISMODULE_NOT_USED(argv);
+    REDISMODULE_NOT_USED(argc);
+
+    RedisModuleString *s = RedisModule_CreateString(ctx,&quot;foo&quot;,3);
+    RedisModule_StringAppendBuffer(ctx,s,&quot;bar&quot;,3);
+    RedisModule_ReplyWithString(ctx,s);
+    RedisModule_FreeString(ctx,s);
+    return REDISMODULE_OK;
+}
+
+/* TEST.STRING.APPEND.AM -- Test append with retain when auto memory is on. */
+int TestStringAppendAM(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    REDISMODULE_NOT_USED(argv);
+    REDISMODULE_NOT_USED(argc);
+
+    RedisModule_AutoMemory(ctx);
+    RedisModuleString *s = RedisModule_CreateString(ctx,&quot;foo&quot;,3);
+    RedisModule_RetainString(ctx,s);
+    RedisModule_StringAppendBuffer(ctx,s,&quot;bar&quot;,3);
+    RedisModule_ReplyWithString(ctx,s);
+    RedisModule_FreeString(ctx,s);
+    return REDISMODULE_OK;
+}
+
+/* TEST.STRING.PRINTF -- Test string formatting. */
+int TestStringPrintf(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    RedisModule_AutoMemory(ctx);
+    if (argc &lt; 3) {
+        return RedisModule_WrongArity(ctx);
+    }
+    RedisModuleString *s = RedisModule_CreateStringPrintf(ctx,
+        &quot;Got %d args. argv[1]: %s, argv[2]: %s&quot;,
+        argc,
+        RedisModule_StringPtrLen(argv[1], NULL),
+        RedisModule_StringPtrLen(argv[2], NULL)
+    );
+
+    RedisModule_ReplyWithString(ctx,s);
+
+    return REDISMODULE_OK;
+}
+
+
+/* ----------------------------- Test framework ----------------------------- */
+
+/* Return 1 if the reply matches the specified string, otherwise log errors
+ * in the server log and return 0. */
+int TestAssertStringReply(RedisModuleCtx *ctx, RedisModuleCallReply *reply, char *str, size_t len) {
+    RedisModuleString *mystr, *expected;
+
+    if (RedisModule_CallReplyType(reply) != REDISMODULE_REPLY_STRING) {
+        RedisModule_Log(ctx,&quot;warning&quot;,&quot;Unexpected reply type %d&quot;,
+            RedisModule_CallReplyType(reply));
+        return 0;
+    }
+    mystr = RedisModule_CreateStringFromCallReply(reply);
+    expected = RedisModule_CreateString(ctx,str,len);
+    if (RedisModule_StringCompare(mystr,expected) != 0) {
+        const char *mystr_ptr = RedisModule_StringPtrLen(mystr,NULL);
+        const char *expected_ptr = RedisModule_StringPtrLen(expected,NULL);
+        RedisModule_Log(ctx,&quot;warning&quot;,
+            &quot;Unexpected string reply '%s' (instead of '%s')&quot;,
+            mystr_ptr, expected_ptr);
+        return 0;
+    }
+    return 1;
+}
+
+/* Return 1 if the reply matches the specified integer, otherwise log errors
+ * in the server log and return 0. */
+int TestAssertIntegerReply(RedisModuleCtx *ctx, RedisModuleCallReply *reply, long long expected) {
+    if (RedisModule_CallReplyType(reply) != REDISMODULE_REPLY_INTEGER) {
+        RedisModule_Log(ctx,&quot;warning&quot;,&quot;Unexpected reply type %d&quot;,
+            RedisModule_CallReplyType(reply));
+        return 0;
+    }
+    long long val = RedisModule_CallReplyInteger(reply);
+    if (val != expected) {
+        RedisModule_Log(ctx,&quot;warning&quot;,
+            &quot;Unexpected integer reply '%lld' (instead of '%lld')&quot;,
+            val, expected);
+        return 0;
+    }
+    return 1;
+}
+
+#define T(name,...) \
+    do { \
+        RedisModule_Log(ctx,&quot;warning&quot;,&quot;Testing %s&quot;, name); \
+        reply = RedisModule_Call(ctx,name,__VA_ARGS__); \
+    } while (0);
+
+/* TEST.IT -- Run all the tests. */
+int TestIt(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    REDISMODULE_NOT_USED(argv);
+    REDISMODULE_NOT_USED(argc);
+
+    RedisModule_AutoMemory(ctx);
+    RedisModuleCallReply *reply;
+
+    /* Make sure the DB is empty before to proceed. */
+    T(&quot;dbsize&quot;,&quot;&quot;);
+    if (!TestAssertIntegerReply(ctx,reply,0)) goto fail;
+
+    T(&quot;ping&quot;,&quot;&quot;);
+    if (!TestAssertStringReply(ctx,reply,&quot;PONG&quot;,4)) goto fail;
+
+    T(&quot;test.call&quot;,&quot;&quot;);
+    if (!TestAssertStringReply(ctx,reply,&quot;OK&quot;,2)) goto fail;
+
+    T(&quot;test.string.append&quot;,&quot;&quot;);
+    if (!TestAssertStringReply(ctx,reply,&quot;foobar&quot;,6)) goto fail;
+
+    T(&quot;test.string.append.am&quot;,&quot;&quot;);
+    if (!TestAssertStringReply(ctx,reply,&quot;foobar&quot;,6)) goto fail;
+
+    T(&quot;test.string.printf&quot;, &quot;cc&quot;, &quot;foo&quot;, &quot;bar&quot;);
+    if (!TestAssertStringReply(ctx,reply,&quot;Got 3 args. argv[1]: foo, argv[2]: bar&quot;,38)) goto fail;
+
+    RedisModule_ReplyWithSimpleString(ctx,&quot;ALL TESTS PASSED&quot;);
+    return REDISMODULE_OK;
+
+fail:
+    RedisModule_ReplyWithSimpleString(ctx,
+        &quot;SOME TEST NOT PASSED! Check server logs&quot;);
+    return REDISMODULE_OK;
+}
+
+int RedisModule_OnLoad(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    REDISMODULE_NOT_USED(argv);
+    REDISMODULE_NOT_USED(argc);
+
+    if (RedisModule_Init(ctx,&quot;test&quot;,1,REDISMODULE_APIVER_1)
+        == REDISMODULE_ERR) return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;test.call&quot;,
+        TestCall,&quot;write deny-oom&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;test.string.append&quot;,
+        TestStringAppend,&quot;write deny-oom&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;test.string.append.am&quot;,
+        TestStringAppendAM,&quot;write deny-oom&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;test.string.printf&quot;,
+        TestStringPrintf,&quot;write deny-oom&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;test.it&quot;,
+        TestIt,&quot;readonly&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    return REDISMODULE_OK;
+}
+
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../helloblock/" class="btn btn-neutral" title="helloblock.c"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../helloblock/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>hellotype.c - Redis Modules</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "hellotype.c";
+    var mkdocs_page_input_path = "code/hellotype.md";
+    var mkdocs_page_url = "/code/hellotype/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Redis Modules</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Intro</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../API/">API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../TYPES/">Types</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../BLOCK/">Blocking</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Code</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../helloworld/">helloworld.c</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">hellotype.c</a>
+        
+            <ul>
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../helloblock/">helloblock.c</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../testmodule/">testmodule.c</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Redis Modules</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Code &raquo;</li>
+        
+      
+    
+    <li>hellotype.c</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <pre><code class="cc">/* This file implements a new module native data type called &quot;HELLOTYPE&quot;.
+ * The data structure implemented is a very simple ordered linked list of
+ * 64 bit integers, in order to have something that is real world enough, but
+ * at the same time, extremely simple to understand, to show how the API
+ * works, how a new data type is created, and how to write basic methods
+ * for RDB loading, saving and AOF rewriting.
+ *
+ * -----------------------------------------------------------------------------
+ *
+ * Copyright (c) 2016, Salvatore Sanfilippo &lt;antirez at gmail dot com&gt;
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *   * Redistributions of source code must retain the above copyright notice,
+ *     this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *   * Neither the name of Redis nor the names of its contributors may be used
+ *     to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#include &quot;../redismodule.h&quot;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;ctype.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdint.h&gt;
+
+static RedisModuleType *HelloType;
+
+/* ========================== Internal data structure  =======================
+ * This is just a linked list of 64 bit integers where elements are inserted
+ * in-place, so it's ordered. There is no pop/push operation but just insert
+ * because it is enough to show the implementation of new data types without
+ * making things complex. */
+
+struct HelloTypeNode {
+    int64_t value;
+    struct HelloTypeNode *next;
+};
+
+struct HelloTypeObject {
+    struct HelloTypeNode *head;
+    size_t len; /* Number of elements added. */
+};
+
+struct HelloTypeObject *createHelloTypeObject(void) {
+    struct HelloTypeObject *o;
+    o = RedisModule_Alloc(sizeof(*o));
+    o-&gt;head = NULL;
+    o-&gt;len = 0;
+    return o;
+}
+
+void HelloTypeInsert(struct HelloTypeObject *o, int64_t ele) {
+    struct HelloTypeNode *next = o-&gt;head, *newnode, *prev = NULL;
+
+    while(next &amp;&amp; next-&gt;value &lt; ele) {
+        prev = next;
+        next = next-&gt;next;
+    }
+    newnode = RedisModule_Alloc(sizeof(*newnode));
+    newnode-&gt;value = ele;
+    newnode-&gt;next = next;
+    if (prev) {
+        prev-&gt;next = newnode;
+    } else {
+        o-&gt;head = newnode;
+    }
+    o-&gt;len++;
+}
+
+void HelloTypeReleaseObject(struct HelloTypeObject *o) {
+    struct HelloTypeNode *cur, *next;
+    cur = o-&gt;head;
+    while(cur) {
+        next = cur-&gt;next;
+        RedisModule_Free(cur);
+        cur = next;
+    }
+    RedisModule_Free(o);
+}
+
+/* ========================= &quot;hellotype&quot; type commands ======================= */
+
+/* HELLOTYPE.INSERT key value */
+int HelloTypeInsert_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    RedisModule_AutoMemory(ctx); /* Use automatic memory management. */
+
+    if (argc != 3) return RedisModule_WrongArity(ctx);
+    RedisModuleKey *key = RedisModule_OpenKey(ctx,argv[1],
+        REDISMODULE_READ|REDISMODULE_WRITE);
+    int type = RedisModule_KeyType(key);
+    if (type != REDISMODULE_KEYTYPE_EMPTY &amp;&amp;
+        RedisModule_ModuleTypeGetType(key) != HelloType)
+    {
+        return RedisModule_ReplyWithError(ctx,REDISMODULE_ERRORMSG_WRONGTYPE);
+    }
+
+    long long value;
+    if ((RedisModule_StringToLongLong(argv[2],&amp;value) != REDISMODULE_OK)) {
+        return RedisModule_ReplyWithError(ctx,&quot;ERR invalid value: must be a signed 64 bit integer&quot;);
+    }
+
+    /* Create an empty value object if the key is currently empty. */
+    struct HelloTypeObject *hto;
+    if (type == REDISMODULE_KEYTYPE_EMPTY) {
+        hto = createHelloTypeObject();
+        RedisModule_ModuleTypeSetValue(key,HelloType,hto);
+    } else {
+        hto = RedisModule_ModuleTypeGetValue(key);
+    }
+
+    /* Insert the new element. */
+    HelloTypeInsert(hto,value);
+
+    RedisModule_ReplyWithLongLong(ctx,hto-&gt;len);
+    RedisModule_ReplicateVerbatim(ctx);
+    return REDISMODULE_OK;
+}
+
+/* HELLOTYPE.RANGE key first count */
+int HelloTypeRange_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    RedisModule_AutoMemory(ctx); /* Use automatic memory management. */
+
+    if (argc != 4) return RedisModule_WrongArity(ctx);
+    RedisModuleKey *key = RedisModule_OpenKey(ctx,argv[1],
+        REDISMODULE_READ|REDISMODULE_WRITE);
+    int type = RedisModule_KeyType(key);
+    if (type != REDISMODULE_KEYTYPE_EMPTY &amp;&amp;
+        RedisModule_ModuleTypeGetType(key) != HelloType)
+    {
+        return RedisModule_ReplyWithError(ctx,REDISMODULE_ERRORMSG_WRONGTYPE);
+    }
+
+    long long first, count;
+    if (RedisModule_StringToLongLong(argv[2],&amp;first) != REDISMODULE_OK ||
+        RedisModule_StringToLongLong(argv[3],&amp;count) != REDISMODULE_OK ||
+        first &lt; 0 || count &lt; 0)
+    {
+        return RedisModule_ReplyWithError(ctx,
+            &quot;ERR invalid first or count parameters&quot;);
+    }
+
+    struct HelloTypeObject *hto = RedisModule_ModuleTypeGetValue(key);
+    struct HelloTypeNode *node = hto ? hto-&gt;head : NULL;
+    RedisModule_ReplyWithArray(ctx,REDISMODULE_POSTPONED_ARRAY_LEN);
+    long long arraylen = 0;
+    while(node &amp;&amp; count--) {
+        RedisModule_ReplyWithLongLong(ctx,node-&gt;value);
+        arraylen++;
+        node = node-&gt;next;
+    }
+    RedisModule_ReplySetArrayLength(ctx,arraylen);
+    return REDISMODULE_OK;
+}
+
+/* HELLOTYPE.LEN key */
+int HelloTypeLen_RedisCommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    RedisModule_AutoMemory(ctx); /* Use automatic memory management. */
+
+    if (argc != 2) return RedisModule_WrongArity(ctx);
+    RedisModuleKey *key = RedisModule_OpenKey(ctx,argv[1],
+        REDISMODULE_READ|REDISMODULE_WRITE);
+    int type = RedisModule_KeyType(key);
+    if (type != REDISMODULE_KEYTYPE_EMPTY &amp;&amp;
+        RedisModule_ModuleTypeGetType(key) != HelloType)
+    {
+        return RedisModule_ReplyWithError(ctx,REDISMODULE_ERRORMSG_WRONGTYPE);
+    }
+
+    struct HelloTypeObject *hto = RedisModule_ModuleTypeGetValue(key);
+    RedisModule_ReplyWithLongLong(ctx,hto ? hto-&gt;len : 0);
+    return REDISMODULE_OK;
+}
+
+
+/* ========================== &quot;hellotype&quot; type methods ======================= */
+
+void *HelloTypeRdbLoad(RedisModuleIO *rdb, int encver) {
+    if (encver != 0) {
+        /* RedisModule_Log(&quot;warning&quot;,&quot;Can't load data with version %d&quot;, encver);*/
+        return NULL;
+    }
+    uint64_t elements = RedisModule_LoadUnsigned(rdb);
+    struct HelloTypeObject *hto = createHelloTypeObject();
+    while(elements--) {
+        int64_t ele = RedisModule_LoadSigned(rdb);
+        HelloTypeInsert(hto,ele);
+    }
+    return hto;
+}
+
+void HelloTypeRdbSave(RedisModuleIO *rdb, void *value) {
+    struct HelloTypeObject *hto = value;
+    struct HelloTypeNode *node = hto-&gt;head;
+    RedisModule_SaveUnsigned(rdb,hto-&gt;len);
+    while(node) {
+        RedisModule_SaveSigned(rdb,node-&gt;value);
+        node = node-&gt;next;
+    }
+}
+
+void HelloTypeAofRewrite(RedisModuleIO *aof, RedisModuleString *key, void *value) {
+    struct HelloTypeObject *hto = value;
+    struct HelloTypeNode *node = hto-&gt;head;
+    while(node) {
+        RedisModule_EmitAOF(aof,&quot;HELLOTYPE.INSERT&quot;,&quot;sl&quot;,key,node-&gt;value);
+        node = node-&gt;next;
+    }
+}
+
+void HelloTypeDigest(RedisModuleDigest *digest, void *value) {
+    REDISMODULE_NOT_USED(digest);
+    REDISMODULE_NOT_USED(value);
+    /* TODO: The DIGEST module interface is yet not implemented. */
+}
+
+void HelloTypeFree(void *value) {
+    HelloTypeReleaseObject(value);
+}
+
+/* This function must be present on each Redis module. It is used in order to
+ * register the commands into the Redis server. */
+int RedisModule_OnLoad(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+    REDISMODULE_NOT_USED(argv);
+    REDISMODULE_NOT_USED(argc);
+
+    if (RedisModule_Init(ctx,&quot;hellotype&quot;,1,REDISMODULE_APIVER_1)
+        == REDISMODULE_ERR) return REDISMODULE_ERR;
+
+    HelloType = RedisModule_CreateDataType(ctx,&quot;hellotype&quot;,0,HelloTypeRdbLoad,HelloTypeRdbSave,HelloTypeAofRewrite,HelloTypeDigest,HelloTypeFree);
+    if (HelloType == NULL) return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;hellotype.insert&quot;,
+        HelloTypeInsert_RedisCommand,&quot;write deny-oom&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;hellotype.range&quot;,
+        HelloTypeRange_RedisCommand,&quot;readonly&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    if (RedisModule_CreateCommand(ctx,&quot;hellotype.len&quot;,
+        HelloTypeLen_RedisCommand,&quot;readonly&quot;,1,1,1) == REDISMODULE_ERR)
+        return REDISMODULE_ERR;
+
+    return REDISMODULE_OK;
+}
+
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../helloblock/" class="btn btn-neutral float-right" title="helloblock.c">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../helloworld/" class="btn btn-neutral" title="helloworld.c"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../helloworld/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../helloblock/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

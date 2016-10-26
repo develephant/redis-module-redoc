@@ -1,0 +1,12 @@
+site_name: Redis Modules
+theme: readthedocs
+pages:
+- Intro: 'index.md'
+- API: 'API.md'
+- Types: 'TYPES.md'
+- Blocking: 'BLOCK.md'
+- Code:
+  - 'helloworld.c': 'code/helloworld.md'
+  - 'hellotype.c': 'code/hellotype.md'
+  - 'helloblock.c': 'code/helloblock.md'
+  - 'testmodule.c': 'code/testmodule.md'
